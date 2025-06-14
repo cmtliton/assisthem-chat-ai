@@ -1,10 +1,20 @@
 <script setup lang="ts">
-const { chat, messages, sendMessage } = useChat();
+import type { Chat, ChatMessage } from "../types";
+
+const props = defineProps<{
+  chat?: Chat;
+  messages?: ChatMessage[];
+  typing: boolean;
+}>();
+const emit = defineEmits(["send-message"]);
+
 const { showScrollButton, scrollToBottom, pinToBottom } = useChatScroll();
+
 function handleSendMessage(message: string) {
-  sendMessage(message);
+  emit("send-message", message);
 }
-watch(() => messages.value, pinToBottom, { deep: true });
+
+watch(() => props.messages, pinToBottom, { deep: true });
 </script>
 <template>
   <div ref="scrollContainer" class="scroll-container">
@@ -30,9 +40,10 @@ watch(() => messages.value, pinToBottom, { deep: true });
             }"
           >
             <div class="message-content">
-              {{ message.content }}
+              <MarkdownRenderer :content="message.content" />
             </div>
           </div>
+          <span v-if="typing" class="typing-indicator"> &#9611; </span>
         </div>
         <div class="message-form-container">
           <div class="scroll-to-bottom-button-container">
@@ -180,5 +191,10 @@ watch(() => messages.value, pinToBottom, { deep: true });
 
 .message-input::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+.typing-indicator {
+  display: inline;
+  animation: pulse 1s infinite;
+  margin-left: 0.25rem;
 }
 </style>

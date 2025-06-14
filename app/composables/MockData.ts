@@ -24,12 +24,23 @@ const MOCK_MESSAGES: ChatMessage[] = [
     content:
       "Nuxt.js provides server-side rendering out of the box! You don't need to do any special configuration for basic SSR. If you need specific optimizations, we can discuss those in detail.",
   },
+  {
+    id: "5",
+    role: "user",
+    content: "Example about vue ref",
+  },
+  {
+    id: "6",
+    role: "assistant",
+    content:
+      "Sure! Here's a simple example of a page in Nuxt.js:\n\n```vue\n<template>\n  <div>\n    <h1>Welcome to My Nuxt.js Page</h1>\n    <p>This is a simple page rendered on the server.</p>\n  </div>\n</template>\n\n<script>\nexport default {\n  name: 'MyPage',\n};\n</script>\n```\n\nThis will render a basic page with a title and a paragraph.",
+  },
 ];
 
 // Mock data for initial chat
 const MOCK_CHAT: Chat = {
   id: "1",
-  title: "Nuxt.js project help",
+  title: "AssisThem Project Help",
   messages: [...MOCK_MESSAGES],
 };
 
